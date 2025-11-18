@@ -94,3 +94,7 @@ web_modules/
 .VolumeIcon.icns
 .TemporaryItems
 .com.apple.timemachine.donotbackup
+
+# Environment variables
+.env*
+!.env.example
