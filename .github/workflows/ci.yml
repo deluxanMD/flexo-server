@@ -7,7 +7,7 @@ on:
       - "dev"
 
 jobs:
-  initial-setup:
+  setup-and-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,9 +21,6 @@ jobs:
       - name: Install Node modules
         run: npm ci
 
-  test:
-    runs-on: ubuntu-latest
-    steps:
       - name: Lint
         run: npm run lint
 
