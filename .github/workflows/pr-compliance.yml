@@ -1,0 +1,58 @@
+name: PR Compliance
+
+on:
+    pull_request:
+        # Trigger on these specific events to re-check when title or labels change
+        types: [opened, edited, reopened, synchronize, labeled, unlabeled]
+
+permissions:
+    pull-requests: read
+
+jobs:
+    validate:
+        name: Enforce Title & Labels
+        runs-on: ubuntu-latest
+        steps:
+            # ------------------------------------------------------------------
+            # Rule 1: Validate PR Title (Conventional Commits)
+            # Accepted: "feat: add login", "fix: resolve crash"
+            # Rejected: "Added login", "Fixed crash"
+            # ------------------------------------------------------------------
+            - name: Validate PR Title
+              uses: amannn/action-semantic-pull-request@v5
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  # List of allowed prefixes
+                  types: |
+                      feat
+                      fix
+                      docs
+                      style
+                      refactor
+                      perf
+                      test
+                      build
+                      ci
+                      chore
+                      revert
+                  # If true, requires format like "feat(auth): title". False allows "feat: title"
+                  requireScope: false
+                  # Custom error message
+                  subjectPattern: ^(?![A-Z]).+$
+                  subjectPatternError: "The subject found in the pull request title should start with a lowercase character."
+
+            # ------------------------------------------------------------------
+            # Rule 2: Validate Labels (Must have at least one)
+            # ------------------------------------------------------------------
+            - name: Check for Labels
+              uses: actions/github-script@v7
+              with:
+                  script: |
+                      const { labels } = context.payload.pull_request;
+
+                      if (labels.length === 0) {
+                        core.setFailed('❌ Validation Failed: This PR has no labels. Please add at least one label (e.g., "enhancement", "bug", "wip") to proceed.');
+                      } else {
+                        console.log(`✅ Verification Passed: Found ${labels.length} label(s).`);
+                      }
