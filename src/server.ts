@@ -1,5 +1,5 @@
 import express from 'express'
-import { getEnv } from './shared/utils/environment.ts'
+import { getEnv } from '#utils/environment/environment.ts'
 
 getEnv()
 
