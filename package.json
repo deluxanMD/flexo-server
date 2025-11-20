@@ -6,6 +6,11 @@
     "author": "",
     "type": "module",
     "main": "server.ts",
+    "imports": {
+        "#utils/*": "./src/shared/utils/*",
+        "#modules/*": "./src/modules/*",
+        "#config/*": "./src/config/*"
+    },
     "scripts": {
         "start:dev": "NODE_ENV=development nodemon src/server.ts",
         "start:prod": "NODE_ENV=production nodemon src/server.ts",
@@ -30,6 +35,8 @@
     },
     "dependencies": {
         "dotenv": "^17.2.3",
-        "express": "^5.1.0"
+        "express": "^5.1.0",
+        "mongodb": "^7.0.0",
+        "mongoose": "^8.20.0"
     }
 }
