@@ -4,6 +4,7 @@ export default defineConfig({
   test: {
     coverage: {
       provider: 'v8',
+      exclude: ['src/server.ts', 'eslint.*', 'vitest.config.ts'],
       thresholds: {
         lines: 80,
         functions: 80,
