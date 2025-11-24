@@ -3,8 +3,11 @@ name: Pull request into main
 on:
   pull_request:
     branches:
-      - 'main'
-      - 'dev'
+      - "main"
+      - "dev"
+
+env:
+  NODE_ENV: test
 
 jobs:
   setup-and-test:
