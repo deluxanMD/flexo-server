@@ -22,7 +22,7 @@ describe('Environment', () => {
 
     const mockEnv = {
       parsed: {
-        PORT: '3000',
+        PORT: '3000', //
       },
     }
 
