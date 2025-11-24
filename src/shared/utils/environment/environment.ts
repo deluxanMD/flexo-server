@@ -3,16 +3,9 @@ import path from 'path'
 
 export const getEnv = () => {
   // Determine the environment and set the path to the corresponding .env file
-  const env = process.env.NODE_ENV || 'development'
+  const env = process.env.NODE_ENV
   const envPath = path.resolve(process.cwd(), `.env.${env}`)
 
   // Load the environment variables
-  const result = dotenv.config({ path: envPath })
-
-  if (result.error) {
-    // You might want to throw an error in a real application
-    console.error(`Error loading .env file: ${envPath}`, result.error)
-  }
-
-  return result
+  return dotenv.config({ path: envPath })
 }
